@@ -1,0 +1,13 @@
+Django~=4.2.7
+django-cors-headers~=4.3.1
+django-filter~=23.4
+djangorestframework~=3.14.0
+Markdown~=3.5.1
+gunicorn~=21.2.0
+python-dotenv~=1.0.0
+psycopg[binary]~=3.1.17
+pillow~=10.1.0
+djangorestframework-simplejwt~=5.3.0
+django-modeltranslation~=0.18.11
+django-unfold~=0.19.0
+django-guardian~=2.4.0

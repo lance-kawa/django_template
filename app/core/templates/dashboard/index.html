@@ -1,0 +1,63 @@
+<!-- templates/cv.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ user }} | Dashboard
+{% endblock %}
+{% load common_tags %}
+{% load i18n %}
+{% block additional_css %}
+  <style>
+    .active {
+      color: black;
+      border-bottom: 2px solid black;
+    }
+  </style>
+  <script type="text/javascript">
+  </script>
+{% endblock %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+  <header class="fixed inset-x-0 z-40 top-0 bg-zinc-900 text-white h-[140px] md:h-[80px] py-2 border-t-2 border-b-2 border-black">
+    <div class="px-8 py-2 flex justify-between items-center flex-col gap-4 md:flex-row">
+      <div class="flex items-center ">
+        <a  href="{% url 'home'%}" class="hover:text-indigo-400"> <i class="fa-solid fa-chevron-left mr-5"></i> </a>
+        <a href="{% url 'dashboard' %}" class="text-xl font-extrabold flex justify-between items-center">
+          {{ user }}<span class="text-zinc-600 text-muted">'s Dashboard</span>
+        </a>
+      </div>
+      <div class="flex gap-4 items-center h-full">
+        <div class="flex flex-row justify-center select-none">
+          <div class="flex flex-row items-center right-1 gap-2">
+              <a class="p-2 flex flex-row items-center border-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none
+              border-black text-sm font-medium hover:bg-indigo-900   focus:bg-indigo-900  text-white  focus:outline-none
+              {% if request.LANGUAGE_CODE == 'en' %}  bg-indigo-900   {% endif %}"
+              href="{% url 'change_language' 'en' %}"
+              >
+                  <span class="text-md">EN</span> 
+                  <span class="ml-1"> <img src="https://img.icons8.com/?size=512&id=t3NE3BsOAQwq&format=png" class="w-5 h-5" /></span>
+              </a>
+
+              <a class="p-2 flex flex-row items-center border border-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all hover:translate-x-[3px]
+              hover:translate-y-[3px] hover:shadow-none border-black text-sm font-medium hover:bg-indigo-900   focus:bg-indigo-900  text-white  focus:outline-none
+              {% if request.LANGUAGE_CODE == 'fr' %}  bg-indigo-900  {% endif %}"
+              href="{% url 'change_language' 'fr' %}"
+              >
+                  <span class="text-md">FR</span>
+                  <span class="ml-1"> <img src="https://img.icons8.com/?size=512&id=3muzEmi4dpD5&format=png" class="w-5 h-5" /></span>
+              </a>
+          </div>
+        </div> 
+        <div class="flex gap-2 items-center">
+          <a href="{% url 'admin:index' %}" class="px-4 py-2 text-xs font-bold text-zinc-100 uppercase 
+          outline-none hover:text-indigo-400 focus:outline-none ease">Admin <i class="fa-solid fa-chevron-right ml-1"></i> </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+                                    
+{% endblock %}
