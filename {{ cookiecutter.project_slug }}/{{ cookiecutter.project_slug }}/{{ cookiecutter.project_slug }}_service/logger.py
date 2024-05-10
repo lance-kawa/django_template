@@ -111,11 +111,7 @@ def get_config(
                 'level': level,
             },
             'django': {
-                'propagate': True,  # Prevents the pika logs from being propagated to the root logger
-                'level': 'ERROR',  # Setting this to CRITICAL means nothing gets logged.
-            },
-            'pika': {
-                'propagate': False,  # Prevents the pika logs from being propagated to the root logger
+                'propagate': True,  # Prevents the django logs from being propagated to the root logger
                 'level': 'CRITICAL',  # Setting this to CRITICAL means nothing gets logged.
             },
         },
