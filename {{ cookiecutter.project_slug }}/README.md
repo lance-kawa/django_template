@@ -71,7 +71,7 @@ DJANGO_SU_PASSWORD=admin123456
 ```
 
 Run migrations
-`cd /{{ cookiercutter.project_slug }} && python manage.py migrate && python manage.py runserver` 
+`cd /{{ cookiecutter.project_slug }} && python manage.py migrate && python manage.py runserver` 
 
 Got to `127.0.0.1:8000` to see your awesome django website
 You can connect on admin with the superuser provided 
