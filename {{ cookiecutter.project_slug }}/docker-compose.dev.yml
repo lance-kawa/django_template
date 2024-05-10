@@ -3,7 +3,7 @@ volumes:
     name: db_{{ cookiecutter.project_slug }}
 
 networks:
-  backend:
+  backend_{{ cookiecutter.project_slug }}:
     driver: bridge
 
 services:
@@ -25,7 +25,7 @@ services:
     volumes:
       - db_{{ cookiecutter.project_slug }}:/var/lib/postgresql/data
     networks:
-      - backend
+      - backend_{{ cookiecutter.project_slug }}
 
   django:
     build: .
@@ -43,4 +43,4 @@ services:
     volumes:
       - ./{{ cookiecutter.project_slug }}:/home/backend/app
     networks:
-      - backend
+      - backend_{{ cookiecutter.project_slug }}
