@@ -3,7 +3,7 @@ name: update-image
 on: [ push ]
 env:
   IMAGE_NAME: {{ cookiecutter.project_slug | lower }}
-# {% raw %}
+{% raw %}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -69,4 +69,4 @@ jobs:
     #     # push the image
     #     docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
     #     docker push $IMAGE_ID:$VERSION
-# {% endraw %}
+{% endraw %}
