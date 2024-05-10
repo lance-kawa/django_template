@@ -1,5 +1,33 @@
 {
     "python.analysis.extraPaths": [
         "{{ cookiecutter.project_slug }}"
-    ]
+    ],
+    "python.testing.pytestEnabled": true,
+    "editor.formatOnSave": true,
+    "ruff.trace.server": "messages",
+    "files.trimTrailingWhitespace": true,
+    "files.trimFinalNewlines": true,
+    "files.insertFinalNewline": true,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.codeActionsOnSave": {
+            "source.fixAll": "explicit"
+        }
+    },
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.indexing": true,
+    "python.analysis.packageIndexDepths": [
+        {
+            "name": "django",
+            "depth": 10,
+            "includeAllSymbols": true,
+        },
+        {
+            "name": "rest_framework",
+            "depth": 10,
+            "includeAllSymbols": true,
+        }
+    ],
+    "ruff.organizeImports": true,
 }
+
