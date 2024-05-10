@@ -46,7 +46,7 @@ urlpatterns = [
         name='docs',
     ),
     path(
-        'openapi',
+        'openapi/',
         get_schema_view(
             title='{{ cookiecutter.project_slug }} schema',
             description='API for {{ cookiecutter.project_slug }} service',
