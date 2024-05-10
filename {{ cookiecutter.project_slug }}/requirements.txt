@@ -20,7 +20,7 @@ ipdb==0.13.13
 
 
 ### PROD ###
-Django==5.0.2
+Django==5.0.3
 djangorestframework==3.14.0
 django-extensions==3.2.3
 django-cors-headers==4.3.1
