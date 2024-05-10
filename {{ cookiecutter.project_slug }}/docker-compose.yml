@@ -11,7 +11,7 @@ services:
     expose:
       - 8000
     networks:
-      - backend
+      - backend_{{ cookiecutter.project_slug }}
 
   nginx:
     image: nginx:alpine
@@ -28,7 +28,7 @@ services:
       - 80:80
       - 443:443
     networks:
-      - backend
+      - backend_{{ cookiecutter.project_slug }}
 
   certbot:
     image: certbot/certbot
@@ -43,4 +43,4 @@ volumes:
   certbot_conf:
 
 networks:
-  backend:
+  backend_{{ cookiecutter.project_slug }}:

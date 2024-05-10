@@ -5,7 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1  
 
 RUN apt-get update && \
-    apt-get install -y nano vim && \
+    apt-get install -y nano vim build-essential  && \
     apt-get clean
 
 FROM base as pip-installed

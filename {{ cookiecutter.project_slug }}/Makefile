@@ -4,7 +4,7 @@ create-env-file:
 
 install-local: create-env-file
 	echo "Installing precommits"
-	pip install -r requirements/dev.txt
+	pip install -r requirements.txt
 	pre-commit install
 	pre-commit install --hook-type commit-msg
 
@@ -43,16 +43,16 @@ logs:
 rerun: clean run logs
 
 restart:
-	docker compose -f docker-compose.dev.yml restart -t 1 api 
+	docker compose -f docker-compose.dev.yml restart -t 1 django 
 
 exec:
-	docker compose -f docker-compose.dev.yml exec -ti api bash
+	docker compose -f docker-compose.dev.yml exec -ti django bash
 
 shell:
-	docker exec -ti {{ cookiecutter.project_slug }}_api python manage.py shell_plus
+	docker compose -f docker-compose.dev.yml exec -ti django python manage.py shell_plus
 
 debug-web:
-	docker exec -ti {{ cookiecutter.project_slug }}_api madbg connect
+	docker compose -f docker-compose.dev.yml exec -ti django madbg connect
 
 migrations:
-	docker exec -ti {{ cookiecutter.project_slug }}_api python manage.py makemigrations
+	docker compose -f docker-compose.dev.yml exec -ti django python manage.py makemigrations

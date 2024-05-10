@@ -1,6 +1,6 @@
 volumes:
   db_{{ cookiecutter.project_slug }}:                                 # <- Rename "volume_name"
-    name: db_ {{ cookiecutter.project_slug }}
+    name: db_{{ cookiecutter.project_slug }}
 
 networks:
   backend:
