@@ -1,0 +1,8 @@
+{
+    "project_slug": "my_repo",
+    "app_name": "app",
+    "repo_url": "repo_git@github.com:orga/my_repo.git",
+    "_copy_without_render": [
+        "*.html"
+    ]
+}

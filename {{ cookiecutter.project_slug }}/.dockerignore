@@ -1,0 +1,5 @@
+# don't copy env files
+# only rely on the env vars passed to the containers
+.env*
+.venv*
+.history*

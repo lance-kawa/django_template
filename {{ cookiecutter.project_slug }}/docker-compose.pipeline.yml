@@ -1,0 +1,29 @@
+# The networks configuration for GitHub actions are nightmare. Be cautious
+# We use network_mode: host to directly use the host network.
+# This is not what you want when running locally. Use docker-compose.yml instead
+
+version: '3'
+
+services:
+
+  db_test:
+    image: bitnami/postgresql:14.5.0
+    container_name: {{ cookiecutter.project_slug }}_test_db
+    env_file:
+      - ./.env.test
+    healthcheck:
+      interval: 10s
+      retries: 10
+      test: "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\" -p  \"$$POSTGRESQL_PORT_NUMBER\""
+      timeout: 2s
+    network_mode: host
+
+  django_test:
+    build: .
+    container_name: {{ cookiecutter.project_slug }}_test
+    env_file:
+      - ./.env.test
+    depends_on:
+      db_test:
+        condition: service_healthy
+    network_mode: host

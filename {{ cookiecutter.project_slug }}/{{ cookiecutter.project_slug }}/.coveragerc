@@ -1,0 +1,10 @@
+# we don't use pyproject.toml because it's not copied in the prod
+# container as it's in the folder above. We need this config to
+# be available in prod for the tests in CI.
+[run]
+branch = True
+omit =
+    manage.py
+    {{ cookiecutter.app_name }}/migrations/*,
+    {{ cookiecutter.app_name }}/tests.py,
+    {{ cookiecutter.project_slug }}_service/urls.py,
