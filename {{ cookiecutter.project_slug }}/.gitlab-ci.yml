@@ -1,0 +1,57 @@
+##################################################################################
+# GIT LAB CI CONFIGURATION
+##################################################################################
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  IMAGE_TAG_DEV: "$CI_REGISTRY_IMAGE:dev"
+  IMAGE_TAG_STAGING: "$CI_REGISTRY_IMAGE:staging"
+  IMAGE_TAG_PROD: "$CI_REGISTRY_IMAGE"
+  GIT_DEPTH: "10"
+
+# ON EVERY PUSH AND EVERY MR
+run-tests:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker compose -f docker-compose.ci.yml up test_db -d
+    - docker compose -f docker-compose.ci.yml run --build api python manage.py test --keepdb --verbosity=2
+    - docker compose -f docker-compose.ci.yml down -t 1
+  rules:
+    - if: '$CI_COMMIT_REF_NAME != "dev" && $CI_COMMIT_REF_NAME != "master" && $CI_COMMIT_REF_NAME != "staging" && $CI_PIPELINE_SOURCE != "merge_request_event"'
+
+
+# Build the Docker image with the 'dev' tag, ONLY ON DEV MR
+build-image-dev:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+    - apk add --update bash && rm -rf /var/cache/apk/*
+    - apk add git
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  script:
+    - docker build --pull -t $IMAGE_TAG_DEV .
+    - docker push $IMAGE_TAG_DEV
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+
+# Deploy to server (manual pipelie)
+deploy_dev:
+  image: alpine:latest
+  stage: deploy
+  script:
+    - chmod og= $SSH_KEY
+    - apk update && apk add openssh-client
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no $SSH_USER@$SSH_IP -p 3022 "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY"
+    - ssh -i $SSH_KEY -o StrictHostKeyChecking=no $SSH_USER@$SSH_IP -p 3022 "docker compose pull && docker compose up -d"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+      when: manual
