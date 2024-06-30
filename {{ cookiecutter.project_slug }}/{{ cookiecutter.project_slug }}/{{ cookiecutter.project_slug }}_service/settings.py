@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from {{ cookiecutter.project_slug }}_service.logger import logger
-from {{ cookiecutter.project_slug }}_service.logger import BaseConfig, SentryConfig
+from {{ cookiecutter.project_slug }}_service import logger
+from {{ cookiecutter.project_slug }}_service.config import BaseConfig, SentryConfig
 
 
 class Config(BaseConfig):
